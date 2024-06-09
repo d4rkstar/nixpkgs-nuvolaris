@@ -17,12 +17,20 @@
 
 { pkgs ? import <nixpkgs> {} }:
 let
-  nuv = pkgs.callPackage ./nuv.nix { }; 
+  nuv = pkgs.callPackage ./nuv.nix { };
   which = pkgs.which;
 in
-pkgs.mkShell {
+pkgs.mkShellNoCC {
   buildInputs = [
     nuv
    which
   ];
+
+  shellHook = ''
+    if [ -z "$CACHIX_AUTH_TOKEN" ]; then
+      echo "CACHIX_AUTH_TOKEN is not set. Please set it before entering the shell.";
+    else
+      cachix use d4rkstar
+    fi
+  '';
 }
