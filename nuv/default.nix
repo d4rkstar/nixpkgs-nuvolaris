@@ -15,21 +15,20 @@
 # specific language governing permissions and limitations
 # under the License.
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 let
   nuv = pkgs.callPackage ./nuv.nix { };
-  which = pkgs.which;
 in
 pkgs.mkShellNoCC {
   buildInputs = [
     nuv
-   which
   ];
 
   shellHook = ''
     if [ -z "$CACHIX_AUTH_TOKEN" ]; then
       echo "CACHIX_AUTH_TOKEN is not set. Please set it before entering the shell.";
     else
+      echo "Using cachix"
       cachix use d4rkstar
     fi
   '';
