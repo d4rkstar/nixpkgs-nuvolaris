@@ -57,16 +57,16 @@ in buildGoModule rec {
 
   doCheck = false; 
 
-  ldFlags =  [
+  ldflags =  [
     "-X main.NuvVersion=${version}"
      "-X main.NuvBranch=${branch}"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Nuvolaris Almighty CLI tool";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
     homepage = "https://nuvolaris.io/";
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with lib.maintainers; [ d4rkstar msciabarra ];
     mainProgram = "nuv";
   };
 

@@ -18,9 +18,11 @@
 { pkgs ? import <nixpkgs> {} }:
 let
   nuv = pkgs.callPackage ./nuv.nix { }; 
+  which = pkgs.which;
 in
 pkgs.mkShell {
   buildInputs = [
     nuv
+   which
   ];
 }
